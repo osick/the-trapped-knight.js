@@ -3,7 +3,7 @@ var Indexes = [],
 	shape = [],
 	SpiralSize, s1, s2, cnv, ctx;
 var deb = true;
-var gridOptions = {boxSize: 5,gridColor: '#f0f0f0', gridSize: 800, matchColor: "#505050", firstColor: "#00ff00", lastColor: "#ff0000"};
+var gridOptions = {boxSize: 4,gridColor: '#f0f0f0', gridSize: 1000, matchColor: "#505050", firstColor: "#00ff00", lastColor: "#ff0000"};
 
 /**
  * set the type of shape ("Springer" or "Cross")
