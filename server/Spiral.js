@@ -3,21 +3,7 @@ var Indexes = [],
 	shape = [],
 	SpiralSize, s1, s2, cnv, ctx;
 var deb = true;
-var gridOptions = {boxSize: 6, gridColor: '#f0f0f0', gridSize: 1800, matchColor: "#ff0000", firstColor: "#ffff00", lastColor: "#00ff00"};
-
-$(document).ready(function () {
-	initGrid();
-	setShape(17, 4, "Springer");
-	fillIndices();
-	drawGrid();
-	/*pair is the starting point*/
-	var pair = [Math.floor((SpiralSize) / 2) - ((SpiralSize - 1) % 2), Math.floor((SpiralSize) / 2) - ((SpiralSize - 1) % 2)];
-	List.push(Indexes[pair[0]][pair[1]]);
-	log("1: " + Indexes[pair[0]][pair[1]]);
-	drawBox(ctx, pair[0] + 1, pair[1] + 1, gridOptions.firstColor, gridOptions.boxSize, 0);
-	while (pair != null) {pair = getMinimumIndex(pair[0], pair[1]);}
-	document.getElementById("number").innerHTML = List.length + " Steps";
-});
+var gridOptions = {boxSize: 5,gridColor: '#f0f0f0', gridSize: 800, matchColor: "#505050", firstColor: "#00ff00", lastColor: "#ff0000"};
 
 /**
  * set the type of shape ("Springer" or "Cross")
@@ -26,9 +12,8 @@ $(document).ready(function () {
  * @param  {String} type type of shape ("Springer" or "Cross")
  */
 function setShape(a, b, type) {
-	if (type == "Springer") {setSpringerShape(a, b)
-	} else if (type == "Cross") {setCrossShape(a, b)
-	} else {exit;}
+	
+	if (type == "Springer") {setSpringerShape(a, b)} else if (type == "Cross") {setCrossShape(a, b)} 
 }
 
 /**
@@ -62,7 +47,6 @@ function initGrid() {
 	cnv.height = gridOptions.gridSize;
 	cnv.style.marginTop = "10px";
 	cnv.parentElement.style.textAlign = "center";
-	cnv.parentElement.style.backgroundColor = "#e0e0e0";
 	ctx = cnv.getContext('2d');
 	SpiralSize = Math.floor(cnv.width / gridOptions.boxSize);
 }
@@ -92,48 +76,39 @@ function drawGrid() {
 /**
  */
 function fillIndices() {
+	Indexes=[]
 	SpiralSize = Math.floor(cnv.width / gridOptions.boxSize);
 	var from = -Math.floor((SpiralSize / 2) + 1);
 	var to = -from + (SpiralSize % 2) - 2;
 	var val = 0;
 	for (var xx = to; xx > from; xx--) {
-		var line = [];
+		var Row = [];
 		for (yy = to; yy > from; yy--) {
 			var val = Math.pow((Math.abs(Math.abs(xx) - Math.abs(yy)) + Math.abs(xx) + Math.abs(yy)), 2) + Math.abs(xx + yy + 0.1) / (xx + yy + 0.1) * (Math.abs(Math.abs(xx) - Math.abs(yy)) + Math.abs(xx) + Math.abs(yy) + xx - yy) + 1;
-			line.push(val);
+			Row.push(val);
 		}
-		Indexes.push(line);
+		Indexes.push(Row);
 	}
 }
 /**
- * @param  {} Line
+ * @param  {} Row
  * @param  {} Column
  */
-function getMinimumIndex(Line, Column) {
-	var min = -1,
-		newLine = Line,
-		newColumn = Column,
-		found = null,
-		c = gridOptions.matchColor,
-		bS = gridOptions.boxSize;
+function getMinimumIndex(Row, Column) {
+	var min = -1, newRow = Row, newColumn = Column, found = null, c = gridOptions.matchColor, bS = gridOptions.boxSize;
 	shape.forEach(function (el) {
-		if (Line + el[0] >= 0 && Line + el[0] < SpiralSize && Column + el[1] >= 0 && Column + el[1] < SpiralSize) {
-			val = Indexes[Line + el[0]][Column + el[1]];
+		if (Row + el[0] >= 0 && Row + el[0] < SpiralSize && Column + el[1] >= 0 && Column + el[1] < SpiralSize) {
+			val = Indexes[Row + el[0]][Column + el[1]];
 			if ((min > val || min == -1) && !List.includes(val)) {
 				min = val;
-				newLine = Line + el[0];
+				newRow = Row + el[0];
 				newColumn = Column + el[1];
-				found = [newLine, newColumn];
+				found = [newRow, newColumn];
 			}
 		}
 	});
-	if (found != null) {
-		List.push(Indexes[newLine][newColumn]);
-		log(Indexes[newLine][newColumn]);
-		c = "rgb(255,0,0)";
-	} else {
-		c = gridOptions.lastColor;
-	}
-	drawBox(ctx, newLine + 1, newColumn + 1, c, bS, 1);
+	if (found != null) {List.push(Indexes[newRow][newColumn]); c = gridOptions.matchColor;} 
+	else { log("Punkte:"+List.length); c = gridOptions.lastColor;}
+	drawBox(ctx, newRow + 1, newColumn + 1, c, bS, 1);
 	return found;
 }
