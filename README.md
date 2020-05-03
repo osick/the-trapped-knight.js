@@ -12,7 +12,7 @@ Feel free to play with the source
 
 # Licence
 
-  [GPL v.30](./LICENCE)
+  [GPL v3.0](./LICENCE)
 
 # References
   * The problem will be explained in detail at [Numberphile](https://www.youtube.com/watch?v=RGQe8waGJ4w)
