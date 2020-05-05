@@ -3,7 +3,7 @@ var Indexes = [],
 	shape = [],
 	SpiralSize, s1, s2, cnv, ctx;
 var deb = true;
-var gridOptions = {boxSize: 4,gridColor: '#f0f0f0', gridSize: 1000, matchColor: "#505050", firstColor: "#00ff00", lastColor: "#ff0000"};
+var gridOptions = {boxSize: 4,gridColor: '#e0e0e0', gridSize: 1000, matchColor: "#505050", firstColor: "#00ff00", lastColor: "#ff0000"};
 
 /**
  * set the type of shape ("Springer" or "Cross")
@@ -59,8 +59,11 @@ function initGrid() {
  * @param  {} border
  */
 function drawBox(c, pX, pY, fillStyle, bSize, border) {
+	//c.lineTo(pX * bSize,pY * bSize)
+	//c.stroke()
 	c.fillStyle = fillStyle;
 	c.fillRect(pX * bSize, pY * bSize, Math.max(bSize - border, 1), Math.max(bSize - border, 1));
+	
 }
 
 /**

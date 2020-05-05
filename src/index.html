@@ -50,7 +50,10 @@
 				var pair = [Math.floor((SpiralSize) / 2) - ((SpiralSize - 1) % 2), Math.floor((SpiralSize) / 2) - ((SpiralSize - 1) % 2)];
 				List.push(Indexes[pair[0]][pair[1]]);
 				drawBox(ctx, pair[0] + 1, pair[1] + 1, gridOptions.firstColor, gridOptions.boxSize, 0);
+				//ctx.moveTo((pair[0] + 1)* gridOptions.boxSize, (pair[1] + 1)* gridOptions.boxSize)
 				while (pair != null) {pair = getMinimumIndex(pair[0], pair[1]);}
+				
+				
 				document.getElementById("number").innerHTML = List.length + " Steps";
 			}
 			$(document).ready(function () {
